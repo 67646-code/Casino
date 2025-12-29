@@ -1,4 +1,5 @@
 # import datetime
+import random
 import os
 
 #  à ameliorer, erreur au premier lancement, crée le fichier mais crash et si pas de fichier le crée mais pas de suite donc crash
@@ -29,6 +30,7 @@ def menu_principal():
     return choixmenu
 
 def menu_jeu(choixmenu):
+    solde = init_solde()
     if choixmenu == 1:
         print("Bienvenue à la table de Black Jack")
         input("Appuie sur Entrée pour revenir au menu...")
@@ -38,5 +40,18 @@ def menu_jeu(choixmenu):
         input("Appuie sur Entrée pour revenir au menu...")
 
     if choixmenu == 3:
-        print("Bienvenue aux machine à sous")
-        input("Appuie sur Entrée pour revenir au menu...")
+        machine_sous(solde)
+
+
+def machine_sous(solde):
+    print("Bienvenue aux machines à sous! ")
+    print(solde)
+    mise=int(input("Entrez votre mise (-1 pour retourner au menu): "))
+    while mise != -1:
+        valeur = [random.randint(1, 10) for i in range(3)]
+        print(valeur)
+        if valeur[0] != valeur[1] != valeur[2] :
+            solde = solde - mise
+        print(solde)
+        mise=int(input("Entrez votre mise (-1 pour retourner au menu): "))
+    maj_solde(solde)
