@@ -10,5 +10,5 @@ while True:
             maj_solde(solde)
             exit()
     else:
-        menu_jeu(choix)
+        solde=menu_jeu(choix,solde)
 #         fonctionne mais boucle sur l'affichage du menu

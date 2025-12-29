@@ -29,18 +29,20 @@ def menu_principal():
         choixmenu = int(input("Entrez votre choix "))
     return choixmenu
 
-def menu_jeu(choixmenu):
+def menu_jeu(choixmenu,solde):
     solde = init_solde()
     if choixmenu == 1:
         print("Bienvenue à la table de Black Jack")
         input("Appuie sur Entrée pour revenir au menu...")
 
-    if choixmenu == 2:
+    elif choixmenu == 2:
         print("Bienvenue à la Roulette")
         input("Appuie sur Entrée pour revenir au menu...")
 
-    if choixmenu == 3:
-        machine_sous(solde)
+    elif choixmenu == 3:
+        solde = machine_sous(solde)
+
+    return solde
 
 def test_mise(mise,solde):
     while mise < -1 or mise > solde:
@@ -66,3 +68,4 @@ def machine_sous(solde):
         mise=int(input("Entrez votre mise (-1 pour retourner au menu): "))
         test = test_mise(mise,solde)
     maj_solde(solde)
+    return solde
