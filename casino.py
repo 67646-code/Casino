@@ -18,6 +18,7 @@ def maj_solde(solde):
         f.write(f"{solde}")
 
 def menu_principal():
+    # TODO : solution contre les entrées users non désirée (ValueError quand on entre une chaine)
     choixmenu = 0
     while choixmenu < 1 or choixmenu > 4:
         print("Menu principal")
