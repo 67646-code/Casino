@@ -1,13 +1,14 @@
-from casino import init_solde
 
-choixmenu = 0
+from casino import init_solde, maj_solde, menu_principal, menu_jeu
 
 solde = init_solde()
-while choixmenu < 1 or choixmenu > 4:
-    print("Menu principal")
-    print(solde)
-    print("1 - Black Jack")
-    print("2 - Roulette")
-    print("3 - Machine à sous")
-    print("4 - Quitter")
-    choixmenu = int(input("Entrez votre choix "))
+while True:
+    choix = menu_principal()
+    if choix == 4:
+        estsur = input("Etes-vous sûr de vouloir partir? vous pouvez encore vous refaire :) (oui/non): ")
+        if estsur == "oui":
+            maj_solde(solde)
+            exit()
+    else:
+        menu_jeu(choix)
+#         fonctionne mais boucle sur l'affichage du menu
