@@ -30,10 +30,8 @@ def menu_principal():
     return choixmenu
 
 def menu_jeu(choixmenu,solde):
-    solde = init_solde()
     if choixmenu == 1:
-        print("Bienvenue à la table de Black Jack")
-        input("Appuie sur Entrée pour revenir au menu...")
+        solde = black_jack(solde)
 
     elif choixmenu == 2:
         print("Bienvenue à la Roulette")
@@ -57,7 +55,7 @@ def machine_sous(solde):
     test = test_mise(mise,solde)
     while test != -1:
         symboles = ["🍒", "🍋", "🔔", "⭐", "💎"]
-        tirage = [random.choice(symboles) for i in range(3)]
+        tirage = [random.choice(symboles) for _ in range(3)]
         print(f"{tirage[0]},{tirage[1]},{tirage[2]}")
         if tirage[0] == tirage[1] == tirage[2] :
             solde += 2*test
@@ -68,4 +66,29 @@ def machine_sous(solde):
         mise=int(input("Entrez votre mise (-1 pour retourner au menu): "))
         test = test_mise(mise,solde)
     maj_solde(solde)
+    return solde
+
+def black_jack(solde):
+    print("Bienvenue aux Balck Jack! ")
+    print(solde)
+    mise = int(input("Entrez votre mise (-1 pour retourner au menu): "))
+    test = test_mise(mise, solde)
+    while test != -1:
+        mainuser=[random.randint(1,11) for _ in range(2)]
+        print(f"{mainuser}")
+        choix=input("Hit or Stay?: ")
+        while True and choix == "Hit" or choix == "hit":
+            mainuser.append(random.randint(1,11))
+            print(f"{mainuser}")
+            if sum(mainuser) > 21 :
+                print("Dommage")
+                solde -= test
+                break
+            elif sum(mainuser) == 21:
+                print("21 !")
+                solde += test
+            choix = input("Hit or Stay?: ")
+        print(solde)
+        mise = int(input("Entrez votre mise (-1 pour retourner au menu): "))
+        test = test_mise(mise, solde)
     return solde
