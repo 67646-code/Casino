@@ -42,16 +42,27 @@ def menu_jeu(choixmenu):
     if choixmenu == 3:
         machine_sous(solde)
 
+def test_mise(mise,solde):
+    while mise < -1 or mise > solde:
+        print("Mise invalide")
+        mise =int(input("Entrez une mise valide, entrez -1 pour revenir au menu: "))
+    return mise
 
 def machine_sous(solde):
     print("Bienvenue aux machines à sous! ")
     print(solde)
     mise=int(input("Entrez votre mise (-1 pour retourner au menu): "))
-    while mise != -1:
-        valeur = [random.randint(1, 10) for i in range(3)]
-        print(valeur)
-        if valeur[0] != valeur[1] != valeur[2] :
-            solde = solde - mise
+    test = test_mise(mise,solde)
+    while test != -1:
+        symboles = ["🍒", "🍋", "🔔", "⭐", "💎"]
+        tirage = [random.choice(symboles) for i in range(3)]
+        print(f"{tirage[0]},{tirage[1]},{tirage[2]}")
+        if tirage[0] == tirage[1] == tirage[2] :
+            solde += 2*test
+        else:
+            print("Dommage")
+            solde -= test
         print(solde)
         mise=int(input("Entrez votre mise (-1 pour retourner au menu): "))
+        test = test_mise(mise,solde)
     maj_solde(solde)
