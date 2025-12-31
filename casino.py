@@ -1,20 +1,68 @@
 # import datetime
 import random
 import os
+import curses.ascii
 
-#  à ameliorer, erreur au premier lancement, crée le fichier mais crash et si pas de fichier le crée mais pas de suite donc crash
-def init_solde():
-    if os.path.exists('./scores.txt') :
-        with open("scores.txt", "r") as f:
-            return int(f.read())
+# TODO : crée fonctions pour le choix du mode difficulté, voir le fichier score.txt
+# TODO : les variables resteront dans ce fichier donc il faut changer les paramètres des fonctions et le nom variables dedans
+
+starting_score=100
+file_name='score.txt'
+
+# def starting_score()
+def file_exist():
+    return os.path.exists(file_name)
+
+def file_content_isdecimal(file_content):
+    if file_content.isdecimal():
+        return True
     else:
-        with open("scores.txt", 'w') as f:
-            f.write("100")
-            return int(100)
+        return False
+
+def isvalid(file_content):
+    if int(file_content) > 0 :
+        return True
+    else:
+        return False
+
+def score_file_reading():
+    with open(file_name,"r") as f:
+        return f.read()
+
+def get_valid_score():
+    if file_exist() :
+        file_content = score_file_reading()
+        if file_content_isdecimal(file_content):
+            if isvalid(file_content):
+                return int(file_content)
+    else:
+        # toute autres situation possible = écrasemement et réecriture du fichier
+        create_score_file()
+        return int(score_file_reading())
+
+def create_score_file():
+    with open(file_name,"w") as f :
+        f.write(str(starting_score))
+    return None
+
+# def score_file_load():
+#     if isusable_file(file_name):
+#         with open(file_name,"r") as f:
+#             return int(f.read())
+#     else:
+#         create_score_file()
+#     return None
+
+-----------------------------------------------------------
+def test_mise(mise,solde):
+    while mise < -1 or mise > solde:
+        print("Mise invalide")
+        mise =int(input("Entrez une mise valide, entrez -1 pour revenir au menu: "))
+    return mise
 
 def maj_solde(solde):
     #mise à jour du solde à faire en début de partie et en fin
-    with open("scores.txt", 'w') as f:
+    with open(file_name, 'w') as f:
         f.write(f"{solde}")
 
 def menu_principal():
@@ -43,11 +91,7 @@ def menu_jeu(choixmenu,solde):
 
     return solde
 
-def test_mise(mise,solde):
-    while mise < -1 or mise > solde:
-        print("Mise invalide")
-        mise =int(input("Entrez une mise valide, entrez -1 pour revenir au menu: "))
-    return mise
+
 
 def machine_sous(solde):
     print("Bienvenue aux machines à sous! ")
