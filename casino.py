@@ -6,6 +6,8 @@ import curses.ascii
 # TODO : crée fonctions pour le choix du mode difficulté, voir le fichier score.txt
 # TODO : les variables resteront dans ce fichier donc il faut changer les paramètres des fonctions et le nom variables dedans
 
+#hello word
+
 starting_score=100
 file_name='score.txt'
 
